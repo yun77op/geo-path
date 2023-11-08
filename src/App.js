@@ -1,23 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import * as React from 'react';
+import Controller from './controller';
+
+const controller = new Controller();
 
 function App() {
+  const [tracing, updateTracing] = React.useState(false);
+
+  const handleTracing = () => {
+
+    if (tracing) {
+      updateTracing(false);
+      controller.stop();
+    } else {
+      updateTracing(true);
+      controller.start();
+    }
+  }
+
+  const example = () => {
+    controller.example();
+  }
+
+  const share = async () => {
+    const shareData = {
+      title: "Geo path",
+      text: "Geo path",
+      url: "https://geo-path.pages.dev/",
+    };
+
+    await navigator.share(shareData);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="toolbar">
+        <button onClick={handleTracing}>{tracing ? 'Stop tracing' : 'Start tracing'}</button>
+        <button onClick={share}>Share</button>
+        <button onClick={example}>Example</button>
+      </div>
+      <div className="altitude">Altitude: <span className="value"></span></div>
     </div>
   );
 }

@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+.toolbar {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+}
+
+.toolbar button + button {
+  margin-left: 10px;
+}
+
+.altitude {
+  position: fixed;
+  top: 40px;
+  left: 10px;
+  color: white;
+}
+
+html {
+  background-color: #000;
+}
